@@ -24,3 +24,7 @@ urlpatterns = [
 urlpatterns += [
     path('api/user/', include('baykarcasestudy.user.urls')),
 ]
+
+urlpatterns += [
+    path('api/iha/', include('baykarcasestudy.iha.urls')),
+]
