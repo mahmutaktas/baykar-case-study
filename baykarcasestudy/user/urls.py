@@ -4,8 +4,11 @@ from django.urls import path
 
 __author__ = 'safaariman'
 
+from baykarcasestudy.user.rest.views.login import LoginView
 from baykarcasestudy.user.rest.views.register import RegisterView
 
 urlpatterns = [
-    path('register/', RegisterView.as_view(), name='auth_register')
+    path('register/', RegisterView.as_view(), name='auth_register'),
+    path('login/', LoginView.as_view(), name='token_obtain_pair'),
+    path('login/refresh/', LoginView.as_view(), name='token_refresh'),
 ]

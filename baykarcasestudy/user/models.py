@@ -1,3 +1,4 @@
+from django.contrib.auth.models import UserManager
 from django.db import models
 from django.contrib.auth.base_user import AbstractBaseUser
 
@@ -9,6 +10,8 @@ class User(AbstractBaseUser):
     created = models.DateField(auto_now_add=True)
 
     USERNAME_FIELD = "email"
+
+    objects = UserManager()
 
     def get_full_name(self):
         full_name = f'{self.first_name} {self.last_name}'
