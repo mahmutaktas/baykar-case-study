@@ -40,9 +40,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'baykarcasestudy.user',
-    'baykarcasestudy.iha',
-    'baykarcasestudy.renting'
+    'rest_framework.authtoken',
+    'baykarcasestudy.apps.user',
+    'baykarcasestudy.apps.iha',
+    'baykarcasestudy.apps.renting'
 ]
 
 MIDDLEWARE = [
@@ -83,6 +84,16 @@ WSGI_APPLICATION = 'baykarcasestudy.wsgi.application'
 DATABASES = {
     'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
 }
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',
+    ],
+}
+
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 

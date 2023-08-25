@@ -22,9 +22,13 @@ urlpatterns = [
 ]
 
 urlpatterns += [
-    path('api/user/', include('baykarcasestudy.user.urls')),
+    path('api/user/', include('baykarcasestudy.apps.user.urls')),
 ]
 
 urlpatterns += [
-    path('api/iha/', include('baykarcasestudy.iha.urls')),
+    path('api/iha/', include('baykarcasestudy.apps.iha.urls')),
+]
+
+urlpatterns += [
+    path('api/renting/', include('baykarcasestudy.apps.renting.urls')),
 ]
