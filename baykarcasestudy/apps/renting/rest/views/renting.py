@@ -1,13 +1,18 @@
+from django_filters import rest_framework as filters
 from rest_framework import generics, viewsets, status
+from rest_framework.filters import OrderingFilter
 from rest_framework.response import Response
 
 from baykarcasestudy.apps.renting.models import RentedIHA
+from baykarcasestudy.apps.renting.rest.filters.renting import RentedIHAFilter
 from baykarcasestudy.apps.renting.rest.serializers.create import RentedIHACreateSerializer
 from baykarcasestudy.apps.renting.rest.serializers.renting import RentedIHASerializer
 
 
 class RentedIHAView(viewsets.ModelViewSet):
     serializer_class = RentedIHASerializer
+    filter_backends = [filters.DjangoFilterBackend, OrderingFilter]
+    filterset_class = RentedIHAFilter
 
     def get_queryset(self):
         qs = (
