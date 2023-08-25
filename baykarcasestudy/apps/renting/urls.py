@@ -1,10 +1,8 @@
-from django.urls import path
-from baykarcasestudy.apps.renting.rest.views.renting import RentedIHACreate, RentedIHAList, RentedIHAUpdate, \
-    RentedIHADelete
+from rest_framework.routers import DefaultRouter
 
-urlpatterns = [
-    path('create/', RentedIHACreate.as_view(), name='create-rented-iha'),
-    path('', RentedIHAList.as_view()),
-    path('update/<int:pk>/', RentedIHAUpdate.as_view(), name='update-rented-iha'),
-    path('delete/<int:pk>/', RentedIHADelete.as_view(), name='delete-rented-iha')
-]
+from baykarcasestudy.apps.renting.rest.views.renting import RentedIHAView
+
+router = DefaultRouter()
+router.register('iha', RentedIHAView, 'rented-iha')
+
+urlpatterns = router.urls

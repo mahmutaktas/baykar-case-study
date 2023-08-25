@@ -7,7 +7,8 @@ from baykarcasestudy.apps.user.rest.serializers.user import UserSerializer
 
 class RentedIHASerializer(serializers.ModelSerializer):
     iha = IHASerializer()
-    user = UserSerializer()
+    renter_user = UserSerializer()
 
     class Meta:
         model = RentedIHA
+        exclude = ['id']

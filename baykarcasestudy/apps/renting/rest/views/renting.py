@@ -1,25 +1,26 @@
-from rest_framework import generics
+from rest_framework import generics, viewsets
+from rest_framework.response import Response
 
 from baykarcasestudy.apps.renting.models import RentedIHA
 from baykarcasestudy.apps.renting.rest.serializers.create import RentedIHACreateSerializer
 from baykarcasestudy.apps.renting.rest.serializers.renting import RentedIHASerializer
 
 
-class RentedIHACreate(generics.CreateAPIView):
-    queryset = RentedIHA.objects.all(),
-    serializer_class = RentedIHACreateSerializer
-
-
-class RentedIHAList(generics.ListAPIView):
-    queryset = RentedIHA.objects.all()
+class RentedIHAView(viewsets.ModelViewSet):
     serializer_class = RentedIHASerializer
 
+    def get_queryset(self):
+        qs = (
+            RentedIHA
+            .objects
+            .all()
+        )
+        return qs
 
-class RentedIHAUpdate(generics.RetrieveUpdateAPIView):
-    queryset = RentedIHA.objects.all()
-    serializer_class = RentedIHASerializer
-
-
-class RentedIHADelete(generics.RetrieveDestroyAPIView):
-    queryset = RentedIHA.objects.all()
-    serializer_class = RentedIHASerializer
+    def create(self, request, *args, **kwargs):
+        data = request.data
+        data["renter_user"] = request.user.id
+        serializer = RentedIHACreateSerializer(data=data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)

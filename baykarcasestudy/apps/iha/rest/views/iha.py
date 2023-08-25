@@ -6,7 +6,6 @@ from baykarcasestudy.apps.iha.models import IHA
 
 
 class IHAView(viewsets.ModelViewSet):
-    queryset = IHA.objects.all()
     serializer_class = IHASerializer
 
     def get_queryset(self):
