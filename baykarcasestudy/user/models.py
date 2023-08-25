@@ -2,12 +2,13 @@ from django.contrib.auth.models import UserManager
 from django.db import models
 from django.contrib.auth.base_user import AbstractBaseUser
 
+from baykarcasestudy.base.models import TimestampMixin
 
-class User(AbstractBaseUser):
+
+class User(AbstractBaseUser, TimestampMixin):
     first_name = models.CharField("First Name", max_length=240)
     last_name = models.CharField("Last Name", max_length=240)
     email = models.EmailField("Email", unique=True, db_index=True, null=True, blank=True)
-    created = models.DateField(auto_now_add=True)
 
     USERNAME_FIELD = "email"
 

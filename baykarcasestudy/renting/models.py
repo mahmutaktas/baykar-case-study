@@ -4,7 +4,7 @@ from baykarcasestudy.base.models import TimestampMixin
 from baykarcasestudy.iha.choices import IHACategory, WeightUnit
 
 
-class IHA(TimestampMixin):
+class RentedIHA(TimestampMixin):
     brand = models.CharField("Brand", max_length=240)
     model = models.CharField("Model", max_length=240)
     weight = models.FloatField("Weight", null=True, blank=True)
