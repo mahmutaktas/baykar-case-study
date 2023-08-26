@@ -15,6 +15,9 @@ class RentedIHAView(viewsets.ModelViewSet):
     filterset_class = RentedIHAFilter
 
     def get_queryset(self):
+        """
+        Get Rented IHA List
+        """
         qs = (
             RentedIHA
             .objects
@@ -24,18 +27,24 @@ class RentedIHAView(viewsets.ModelViewSet):
         return qs
 
     def create(self, request, *args, **kwargs):
+        """
+        Intercept default create method to customize it
+        """
         data = request.data
-        data["renter_user"] = request.user.id
+        data["renter_user"] = request.user.id  # Add current user id to the rented iha
         serializer = RentedIHACreateSerializer(data=data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data)
 
     def update(self, request, *args, **kwargs):
+        """
+        Intercept default update method to customize it
+        """
         rented_iha = self.get_object()
 
         data = request.data
-        data["renter_user"] = request.user.id
+        data["renter_user"] = request.user.id  # Add current user id to the rented iha
 
         serializer = RentedIHACreateSerializer(rented_iha, data=data)
         serializer.is_valid(raise_exception=True)
@@ -43,6 +52,11 @@ class RentedIHAView(viewsets.ModelViewSet):
         return Response(serializer.data)
 
     def destroy(self, request, *args, **kwargs):
+        """
+        Intercept default delete method to customize it
+        """
+
+        # Check if rented iha exists
         try:
             instance = RentedIHA.objects.get(pk=self.kwargs.get('pk'), renter_user=request.user.id)
         except RentedIHA.DoesNotExist:

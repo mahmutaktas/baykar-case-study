@@ -9,6 +9,10 @@ class RentedIHACreateSerializer(serializers.ModelSerializer):
         exclude = ['id']
 
     def validate(self, attrs):
+        """
+        Intercept default validate method to customize it
+        """
+
         validated_data = super().validate(attrs)
 
         start_date = attrs.get('renting_start_date')
@@ -16,9 +20,11 @@ class RentedIHACreateSerializer(serializers.ModelSerializer):
         renter_user = attrs.get('renter_user').id
         iha_id = attrs.get('iha').id
 
+        # Check if renting start date is less than renting end date
         if start_date and end_date and start_date >= end_date:
             raise serializers.ValidationError("Start date must be less than end date")
 
+        # Check if the current user already rented this iha for the same start and end dates
         rented_iha = RentedIHA.objects.filter(renter_user=renter_user, iha_id=iha_id, renting_start_date=start_date,
                                               renting_end_date=end_date).first()
 

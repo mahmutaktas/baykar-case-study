@@ -12,6 +12,9 @@ class IHAView(viewsets.ModelViewSet):
     filterset_class = IHAFilter
 
     def get_queryset(self):
+        """
+        Get IHA List
+        """
         qs = (
             IHA
             .objects
