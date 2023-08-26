@@ -1,0 +1,27 @@
+version: '3.7'
+services:
+  backend:
+    build: ./
+    container_name: baykar-drf
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./:/django
+    ports:
+      - "8000:8000"
+    environment:
+      DEBUG: "true"
+      DATABASE_URL: postgres://postgres:123456@host.docker.internal:5432/baykar-case-study
+  frontend:
+    container_name: baykar-react
+    build: ./baykar-ui
+    environment:
+      CHOKIDAR_USEPOLLING: "true"
+    volumes:
+      - ./baykar-ui:/ui
+      - nodemodules:/ui/node_modules
+      - next:/ui/.next
+    ports:
+      - "3000:3000"
+volumes:
+  nodemodules:
+  next:
