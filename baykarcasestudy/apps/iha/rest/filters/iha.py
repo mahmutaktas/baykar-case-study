@@ -1,8 +1,4 @@
-# -*- coding: utf-8 -*-
-""" Created by Safa Arıman on 11.10.2022 """
 from django_filters import rest_framework as filters
-
-__author__ = 'safaariman'
 
 from baykarcasestudy.apps.iha.models import IHA
 

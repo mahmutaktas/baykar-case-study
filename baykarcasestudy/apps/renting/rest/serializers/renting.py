@@ -11,4 +11,4 @@ class RentedIHASerializer(serializers.ModelSerializer):
 
     class Meta:
         model = RentedIHA
-        exclude = ['id']
+        exclude = []
